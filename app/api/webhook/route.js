@@ -23,7 +23,7 @@ export async function POST(req) {
             const subscriptionData = event.data.object
             await supabase.from("subscriptions").insert([{
                 "sub_id": subscriptionData.id,
-                "user_id": subscriptionData.metadata.userId
+                "user_id": subscriptionData.metadata.userId,
             }]).select()
             break;
     }
