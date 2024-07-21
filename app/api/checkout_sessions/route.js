@@ -14,7 +14,9 @@ export async function POST(req) {
             customer_email: email,
             payment_method_types: ["card"],
             subscription_data: {
-                metadata: { userId }
+                metadata: {
+                    userId,
+                }
             },
             line_items: [{ price: "price_1PewJAFFwTMwop6T75sXBret", quantity: 1 }],
             mode: "subscription",
