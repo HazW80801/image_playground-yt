@@ -33,8 +33,8 @@ export default function Header() {
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <div className="flex space-x-2 items-center justify-center">
-                        <img className="rounded-full h-6 w-6 self-center" src={user?.user_metadata.picture} />
-                        <p className="label text-white">{user?.user_metadata.name}</p>
+                        <img className="rounded-full h-6 w-6 self-center" src={user?.user_metadata?.picture} />
+                        <p className="label text-white">{user?.user_metadata?.name}</p>
                     </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-black text-white border-white/10">
