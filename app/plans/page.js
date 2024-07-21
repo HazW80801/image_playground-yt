@@ -15,7 +15,7 @@ export default function PlansPage() {
     }
     const pay = async () => {
         try {
-            const payload = { email: user.email }
+            const payload = { email: user.email, userId: user.id }
             const response = await axios.post("/api/checkout_sessions", payload)
             const data = response.data
             window.location.replace(data.url)

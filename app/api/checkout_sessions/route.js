@@ -6,15 +6,14 @@ import url from "url"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export async function POST(req) {
-    const { email } = await req.json()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { email, userId } = await req.json()
     try {
         const { protocol, host } = url.parse(req.url)
         const baseUrl = `${protocol}//${host}`
         const session = await stripe.checkout.sessions.create({
             customer_email: email,
             metadata: {
-                user_id: user.id
+                user_id: userId
             },
             payment_method_types: ["card"],
             line_items: [{ price: "price_1PewJAFFwTMwop6T75sXBret", quantity: 1 }],
