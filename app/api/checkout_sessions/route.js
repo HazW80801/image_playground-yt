@@ -12,10 +12,8 @@ export async function POST(req) {
         const baseUrl = `${protocol}//${host}`
         const session = await stripe.checkout.sessions.create({
             customer_email: email,
-            metadata: {
-                user_id: userId
-            },
             payment_method_types: ["card"],
+            metadata: { userId },
             line_items: [{ price: "price_1PewJAFFwTMwop6T75sXBret", quantity: 1 }],
             mode: "subscription",
             success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,

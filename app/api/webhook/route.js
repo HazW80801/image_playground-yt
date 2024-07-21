@@ -4,7 +4,6 @@ import Stripe from "stripe"
 
 
 export async function POST(req) {
-    const { data: { user } } = await supabase.auth.getUser()
     const body = await req.text()
     const sig = req.headers.get("Stripe-Signature")
     if (!sig) {
@@ -22,10 +21,9 @@ export async function POST(req) {
     switch (event.type) {
         case "customer.subscription.created":
             const subscriptionData = event.data.object
-            console.log(subscriptionData)
             await supabase.from("subscriptions").insert([{
                 "sub_id": subscriptionData.id,
-                "user_id": subscriptionData.metadata.user_id
+                "user_id": subscriptionData.metadata.userId
             }]).select()
             break;
     }
