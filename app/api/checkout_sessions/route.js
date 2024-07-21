@@ -1,3 +1,4 @@
+import { supabase } from "@/supabse_client"
 import { NextResponse } from "next/server"
 import Stripe from "stripe"
 import url from "url"
@@ -6,11 +7,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export async function POST(req) {
     const { email } = await req.json()
+    const { data: { user } } = await supabase.auth.getUser()
     try {
         const { protocol, host } = url.parse(req.url)
         const baseUrl = `${protocol}//${host}`
         const session = await stripe.checkout.sessions.create({
             customer_email: email,
+            metadata: {
+                user_id: user.id
+            },
             payment_method_types: ["card"],
             line_items: [{ price: "price_1PewJAFFwTMwop6T75sXBret", quantity: 1 }],
             mode: "subscription",
